@@ -3,7 +3,7 @@
 #include "driver/i2c.h"
 #include "gt9xx.h"
 #include "myi2c.h"
-static const char *TAG = "REC_RAW_HTTP";
+static const char *TAG = "DEMO";
 
 extern "C"
 {
@@ -24,10 +24,10 @@ void app_main(void) {
     int bb=0;
 
     while (true){
-        vTaskDelay(100);
+        vTaskDelay(2);
         bb=a1->scanPoint();
         a1->getPoint(x,y,z);
-        ESP_LOGE(TAG, "I2C Timeout  %d  %d  %d",x,y,bb);
+        ESP_LOGE(TAG, "I2C   %d  %d  %d",x,y,bb);
     }
 
 

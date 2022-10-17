@@ -2,7 +2,7 @@
 #include "gt9xx.h"
 #include "driver/i2c.h"
 
-static const char *TAG = "REC_RAW_HTTP";
+static const char *TAG = "GT9XX";
 
 
 
@@ -90,7 +90,7 @@ bool GT9xx_Class::readBytes( uint16_t reg, uint8_t *data, int nbytes)
     uint8_t a1[2];
     a1[0]=reg>>8;
     a1[1]=reg&0xff;
-    i2c_master_write_read_device(0,0x5D,a1,2,data,nbytes,1000/portTICK_RATE_MS);
+    i2c_master_write_read_device(I2C_NUM_0,0x5D,a1,2,data,nbytes,1000/portTICK_PERIOD_MS);
     return true;
 }
 
@@ -105,7 +105,7 @@ bool GT9xx_Class::writeBytes(uint16_t reg, uint8_t *data, int nbytes)
     for(int k=0;k<nbytes;k++){
         a1[2+k]=data[k];
     }
-    ESP_ERROR_CHECK(i2c_master_write_to_device(0, 0x5D, a1, 2+nbytes, 1000 / portTICK_RATE_MS));
+    ESP_ERROR_CHECK(i2c_master_write_to_device(I2C_NUM_0, 0x5D, a1, 2+nbytes, 1000 / portTICK_PERIOD_MS));
     return true;
 }
 
@@ -145,7 +145,7 @@ uint8_t GT9xx_Class::scanPoint()
     uint8_t point = 0;
     uint8_t buffer[40] = {0};
     if (!readBytes(GT9XX_COORDINATE, buffer, 40)) {
-        ESP_LOGE(TAG, "fuck");
+        ESP_LOGE(TAG, "error");
         return false;
     }
     writeRegister(GT9XX_CLEARBUF, 0);
@@ -153,7 +153,6 @@ uint8_t GT9xx_Class::scanPoint()
     point = buffer[0] & 0xF;
 
     if (point == 0) {
-        ESP_LOGE(TAG, "fuck2");
         return 0;
     }
 

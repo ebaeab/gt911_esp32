@@ -1,9 +1,6 @@
-//
-// Created by vaca on 5/1/22.
-//
 
-#ifndef FUCK1_MYI2C_H
-#define FUCK1_MYI2C_H
+#ifndef MYI2C_H
+#define MYI2C_H
 
 #include "driver/i2c.h"
 
@@ -30,4 +27,4 @@ esp_err_t i2c_master_init(void);
 #ifdef __cplusplus
 }
 #endif
-#endif //FUCK1_MYI2C_H
+#endif //MYI2C_H

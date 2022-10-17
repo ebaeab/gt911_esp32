@@ -1,6 +1,3 @@
-//
-// Created by vaca on 5/1/22.
-//
 
 #include "myi2c.h"
 
